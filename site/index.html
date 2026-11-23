@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ name }} | Research</title>
+  <meta name="description" content="{{ bio }}">
+  {% if website %}<link rel="canonical" href="{{ website }}">{% endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="#top">{{ name }}</a>
+      <nav aria-label="Main navigation">
+        {% if projects %}<a href="#research">Research</a>{% endif %}
+        {% if publications %}<a href="#publications">Publications</a>{% endif %}
+        <a href="{{ cv_filename }}">CV <span aria-hidden="true">&#8599;</span></a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="intro" aria-labelledby="name">
+      <h1 id="name">{{ name }}</h1>
+      <p class="affiliation">{{ affiliation }}</p>
+      <p class="bio">{{ bio }}</p>
+      <div class="links">
+        {% if github_url %}<a href="{{ github_url }}">GitHub <span aria-hidden="true">&#8599;</span></a>{% endif %}
+        <a href="{{ cv_filename }}">Curriculum Vitae <span aria-hidden="true">&#8599;</span></a>
+      </div>
+    </section>
+    {% if projects %}
+    <section class="section" id="research" aria-labelledby="research-title">
+      <h2 id="research-title">Selected Research</h2>
+      {% for project in projects %}
+      <article class="project{% if project.image %} project-with-image{% endif %}">
+        <div>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.summary }}</p>
+          {% set publication = project.publication %}
+          {% if publication and (publication.url or publication.code_url) %}
+          <div class="links">
+            {% if publication.url %}<a href="{{ publication.url }}">Paper <span aria-hidden="true">&#8599;</span></a>{% endif %}
+            {% if publication.code_url %}<a href="{{ publication.code_url }}">Code <span aria-hidden="true">&#8599;</span></a>{% endif %}
+          </div>
+          {% endif %}
+        </div>
+        {% if project.image %}
+        <figure class="figure">
+          <img src="{{ project.image.file }}" alt="{{ project.image.alt }}">
+          {% if project.image.caption %}<figcaption>{{ project.image.caption }}</figcaption>{% endif %}
+        </figure>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </section>
+    {% endif %}
+    {% if publications %}
+    <section class="section" id="publications" aria-labelledby="publications-title">
+      <h2 id="publications-title">Publications</h2>
+      {% for publication in publications %}
+      <article class="publication">
+        <p class="venue">{{ publication.venue }}</p>
+        <div>
+          <h3>{% if publication.url %}<a href="{{ publication.url }}">{{ publication.title }}</a>{% else %}{{ publication.title }}{% endif %}</h3>
+          <p class="authors">{% for author in publication.authors %}{% if author == name %}<strong>{{ author }}</strong>{% else %}{{ author }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+        </div>
+      </article>
+      {% endfor %}
+    </section>
+    {% endif %}
+  </main>
+  <footer class="wrap site-footer"><span>{{ 'Fictional example' if example else name }}</span><a href="#top">Back to top &#8593;</a></footer>
+</body>
+</html>

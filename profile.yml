@@ -1,0 +1,15 @@
+name: Mira Vale
+affiliation: Aster Vale Institute of Technology
+bio: I study computer science and build tools that make large-scale experiments easier to reproduce. My interests include distributed systems and performance measurement.
+example: true
+education:
+  institution: Aster Vale Institute of Technology
+  degree: M.Sc.
+  area: Computer Science
+  date: '2024 - Present'
+  highlights:
+    - 'Graduate research focus: reproducible systems experiments.'
+awards:
+  - Aster Vale Graduate Research Fellowship, 2025
+activities:
+  - Organized a student reproducibility reading group, 2025
